@@ -1,7 +1,24 @@
-version: 2.1
-orbs:
-  heroku: circleci/heroku@0.0.10
-workflows:
-  heroku_deploy:
-    jobs:
-      - heroku/deploy-via-git
+version: 2
+jobs:
+  build:
+    working_directory: /app/user
+    docker:
+      - image: atsnngs/heroku-nodejs-ci:latest
+    steps:
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ .Branch }}-{{ checksum "package.json" }}
+      - run:
+          command: npm install
+      - save_cache:
+          key: node_modules-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          command: npm test
+      - run:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./.circleci/setup-heroku.sh
+              git push heroku HEAD:master
+            fi
