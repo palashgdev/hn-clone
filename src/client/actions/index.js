@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-loop-func */
 /* eslint-disable prettier/prettier */
@@ -19,11 +20,9 @@ export const dispatchNewsFeeds = (data) => ({
 })
 
 export const fetchNewsFeed = (start, end) => async (dispatch) => {
-    console.log(`fetchNewsFeed....${start} == ${end}`)
-
     const feeds = []
-    for (var i = start; i < end; i++) {
-        await fetch(BASE_URL + ITMES + parseInt(i))
+    for (let i = start; i < end; i += 1) {
+        await fetch(BASE_URL + ITMES + parseInt(i, 10))
             .then((response) => response.json())
             .then((data) => {
                 const results = JSON.parse(JSON.stringify(data))
@@ -76,7 +75,7 @@ export const fetchNewsFeed = (start, end) => async (dispatch) => {
                 }
             })
             .catch((error) => {
-                console.log(`Error Feed -- ${i} == ${JSON.stringify(error)}`)
+                console.error(error)
             })
     }
 }
@@ -87,7 +86,6 @@ export const dispatchVoteCount = (count) => ({
 })
 
 export const setUpVoteCount = (vote) => (dispatch) => {
-    console.log(`Vote : setUpVoteCount Redux = ${JSON.stringify(vote)}`)
     dispatch(dispatchVoteCount(vote))
 }
 
