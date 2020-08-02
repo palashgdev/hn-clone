@@ -1,5 +1,5 @@
-const path = require('path');
-const webpackNodeExternals = require('webpack-node-externals');
+const path = require('path')
+const webpackNodeExternals = require('webpack-node-externals')
 
 module.exports = {
   target: 'node',
@@ -30,23 +30,26 @@ module.exports = {
         loader: 'babel-loader',
         exclude: '/node_modules/',
         options: {
-          'presets': [
+          presets: [
             [
               '@babel/preset-env',
               {
-                'targets': {
+                targets: {
                   esmodules: true,
                 },
+              },
             ],
             '@babel/preset-react',
           ],
           plugins: [
             ['@babel/plugin-proposal-class-properties'],
             ['@babel/transform-regenerator'],
-            ['@babel/transform-runtime', {
-              regenerator: true,
-            },
-            ], ,
+            [
+              '@babel/transform-runtime',
+              {
+                regenerator: true,
+              },
+            ],
           ],
         },
       },
@@ -61,4 +64,4 @@ module.exports = {
     ],
   },
   externals: [webpackNodeExternals()],
-};
+}
