@@ -1,13 +1,5 @@
-import React from "react";
+import React from 'react'
 
+const App = () => <div>asds</div>
 
-const App = () => {
-  return (
-    <div>
-      asds
-    </div>
-  )
-};
-
-
-export default App;
+export default App
