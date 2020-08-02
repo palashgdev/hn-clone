@@ -15,10 +15,8 @@ jobs:
           paths:
             - node_modules
       - run:
-          command: npm test
-      - run:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./.circleci/setup-heroku.sh
+              ./.circleci/set_up.sh
               git push heroku HEAD:master
             fi
